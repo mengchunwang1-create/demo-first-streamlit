@@ -9,9 +9,10 @@ import pandas as pd
 @st.cache_resource
 def init_connection():
     credentials = dict(st.secrets["gcp_service_account"])
+    # 修正換行符號問題
+    credentials["private_key"] = credentials["private_key"].replace("\\n", "\n")
     gc = gspread.service_account_from_dict(credentials)
     return gc
-
 
 gc = init_connection()
 
